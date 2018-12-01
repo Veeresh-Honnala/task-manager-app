@@ -1,0 +1,6 @@
+com/cts/rest/service/TaskManagerServiceImpl.class
+com/cts/rest/service/TaskManagerService.class
+com/cts/rest/controller/TaskManagerController.class
+com/cts/rest/TaskManagerApp.class
+com/cts/rest/model/Task.class
+com/cts/rest/model/Responce.class
