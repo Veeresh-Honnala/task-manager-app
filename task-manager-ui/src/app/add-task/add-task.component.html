@@ -1,3 +1,50 @@
-<p>
-  add-task works!
-</p>
+<form novalidate>
+  <div class="form-group row">
+    <label for="task" class="col-sm-2 col-form-label">Task:</label>
+    <div class="col-sm-6">
+      <input type="text" class="form-control" id="task">
+    </div>
+  </div>
+
+  <!-- <div class="d-flex justify-content-center my-4">
+    <span class="font-weight-bold indigo-text mr-2 mt-1">0</span>
+    <div class="range-field w-25">
+      <input class="border-0" type="range" min="0" max="100" />
+    </div>
+    <span class="font-weight-bold indigo-text ml-2 mt-1">100</span>
+  </div> -->
+
+  <div class="form-group row">
+    <label for="priority" class="col-sm-2 col-form-label">Priority:</label>
+    <div class="col-sm-6">
+      <input type="range" min="0" max="100" class="form-control-range">
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="parentTask" class="col-sm-2 col-form-label">Parent Task:</label>
+    <div class="col-sm-6">
+      <input type="text" class="form-control" id="parentTask">
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="startDate" class="col-sm-2 col-form-label">Start Date:</label>
+    <div class="col-sm-6">
+      <input type="text" class="form-control" id="startDate">
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="endDate" class="col-sm-2 col-form-label">End Date:</label>
+    <div class="col-sm-6">
+      <input type="text" class="form-control" id="endDate">
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-sm-3"></div>
+    <button type="button" class="btn" style="margin:10px">Add Task</button>
+    <button type="button" class="btn" style="margin:10px">Reset</button>
+    <div class="col-sm-2"></div>
+  </div>
+</form>
