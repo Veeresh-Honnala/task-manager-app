@@ -1,6 +1,6 @@
 
 export class TaskModel{
-    task:string;
+    taskName:string;
     priority:string;
     parentTask:string;
     startDate:string;
