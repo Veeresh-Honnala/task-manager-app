@@ -4,6 +4,7 @@ import { ResponseModel } from '../model/response.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of, Subscriber } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
+
 // import { Observable } from 'rxjs/Observable';
 // import 'rxjs/add/observable/of';
 import { restoreBindingIndex } from '@angular/core/src/render3/instructions';
@@ -38,18 +39,28 @@ export class TaskManagerService {
 
   }
 
-  public getTask(task: TaskModel): Observable<any> {
+  public getTask(): Observable<any> {
     if (this.mock) {
 
-      return this.httpClient.post<TaskModel>('../../assets/task-list-response.json', task, httpOptions).pipe(
-        tap((task: TaskModel) => console.log(`added task w/ id=${task.taskName}`)),
+      return this.httpClient.post<ResponseModel<TaskModel>>('', httpOptions).pipe(
+        tap((res: ResponseModel<TaskModel>) => console.log(`added task w/ id=${res.status}`)),
         catchError(this.handleError<TaskModel>('addTask')));
     } else {
       return this.httpClient.get('../../assets/task-list-response.json').pipe(
-        tap((task: TaskModel) => console.log(`added task w/ id=${task.taskName}`)),
+        tap((res: ResponseModel<TaskModel>) => console.log(`added task w/ id=${res.status}`)),
         catchError(this.handleError<TaskModel>('addTask')));
 
     }
+  }
+  public deleteTask(taskId:string){
+    return this.httpClient.post<ResponseModel<TaskModel>>('', httpOptions).pipe(
+      tap((res: ResponseModel<TaskModel>) => console.log(`added task w/ id=${res.status}`)),
+      catchError(this.handleError<TaskModel>('addTask')));
+  }
+  public endTask(taskId:string){
+    return this.httpClient.post<ResponseModel<string>>('', httpOptions).pipe(
+      tap((res: ResponseModel<string>) => console.log(`added task w/ id=${res.status}`)),
+      catchError(this.handleError<ResponseModel<string>>('addTask')));
   }
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
@@ -60,6 +71,8 @@ export class TaskManagerService {
       // Let the app keep running by returning an empty result.
       return of(result as T);
     };
+
+
   }
 
 }

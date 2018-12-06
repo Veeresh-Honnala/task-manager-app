@@ -1,5 +1,5 @@
-<div class="table-responsive">
-  <table class="table">
+<!--<div class="table-responsive">
+   <table class="table">
     <thead>
       <tr>
         <th>Task</th>
@@ -26,5 +26,71 @@
         <td>Female</td>
       </tr>
     </tbody>
-  </table>
+  </table> </div>-->
+
+<div class="form-group row">
+  <label for="taskName" class="col-sm-2 col-form-label">Task:</label>
+  <div class="col-sm-4">
+    <input type="text" class="form-control" id="taskName">
+  </div>
+  <label for="parentTask" class="col-sm-2 col-form-label">Parent Task:</label>
+  <div class="col-sm-4">
+    <input type="text" class="form-control" id="taskName">
+  </div>
+</div>
+<div class="form-group row">
+  <label for="priorityFrom" class="col-sm-1 col-form-label">Priority From:</label>
+  <div class="col-sm-2">
+    <input type="text" class="form-control" id="priorityFrom">
+  </div>
+  <label for="priorityTo" class="col-sm-1 col-form-label">Priority To:</label>
+  <div class="col-sm-2">
+    <input type="text" class="form-control" id="priorityTo">
+  </div>
+  <label for="startDate" class="col-sm-1 col-form-label">Start Date:</label>
+  <div class="col-sm-2">
+    <input type="text" class="form-control" id="startDate">
+  </div>
+  <label for="endDate" class="col-sm-1 col-form-label">Start Date:</label>
+  <div class="col-sm-2">
+    <input type="text" class="form-control" id="endDate">
+  </div>
+</div>
+<hr size="pixels" class="style4" />
+
+<div *ngFor="let task of taskList;let i = index">
+  <div class="form-row">
+    <div class="form-group col-md-2">
+      <label for="taskName">Task</label>
+      <div class="card">
+        <div class="card-body" id="taskName">{{task.taskName}}</div>
+      </div>
+    </div>
+    <div class="form-group col-md-2">
+      <label for="parentTask">Parent Task</label>
+      <div class="card">
+        <div class="card-body" id="parentTask">{{task.parentTask}}</div>
+      </div>
+    </div>
+    <div class="form-group col-md-2">
+      <label for="priority">Parent Task</label>
+      <div id="priority">{{task.priority}}</div>
+    </div>
+    <div class="form-group col-md-2">
+      <label for="startDat">Start Date</label>
+      <div id ="startDat">{{task.startDate}}</div>
+    </div>
+    <div class="form-group col-md-2">
+      <label for="endDat">End Date</label>
+      <div id ="endDat">{{task.endDate}}</div>
+    </div>
+    <div class="form-group col-md-1">
+      <label for="btn"></label>
+      <button type="button" class="btn1" [disabled]="task.flag==='Y'">Edit</button>
+    </div>
+    <div class="form-group col-md-1">
+      <label for="btn2"></label>
+      <button type="button" class="btn2" [disabled]="task.flag==='Y'">End Task</button>
+    </div>
+  </div>
 </div>
