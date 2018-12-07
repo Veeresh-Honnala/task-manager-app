@@ -31,34 +31,34 @@
 <div class="form-group row">
   <label for="taskName" class="col-sm-2 col-form-label">Task:</label>
   <div class="col-sm-4">
-    <input type="text" class="form-control" id="taskName">
+    <input type="text" class="form-control" id="taskName" [(ngModel)]="searchString"> 
   </div>
   <label for="parentTask" class="col-sm-2 col-form-label">Parent Task:</label>
   <div class="col-sm-4">
-    <input type="text" class="form-control" id="taskName">
+    <input type="text" class="form-control" id="taskName" [(ngModel)]="filterData.parentTask">
   </div>
 </div>
 <div class="form-group row">
   <label for="priorityFrom" class="col-sm-1 col-form-label">Priority From:</label>
   <div class="col-sm-2">
-    <input type="text" class="form-control" id="priorityFrom">
+    <input type="text" class="form-control" id="priorityFrom" [(ngModel)]="filterData.priorityFrom">
   </div>
   <label for="priorityTo" class="col-sm-1 col-form-label">Priority To:</label>
   <div class="col-sm-2">
-    <input type="text" class="form-control" id="priorityTo">
+    <input type="text" class="form-control" id="priorityTo" [(ngModel)]="filterData.priorityTo">
   </div>
   <label for="startDate" class="col-sm-1 col-form-label">Start Date:</label>
   <div class="col-sm-2">
-    <input type="text" class="form-control" id="startDate">
+    <input type="text" class="form-control" id="startDate" [(ngModel)]="filterData.startDate">
   </div>
   <label for="endDate" class="col-sm-1 col-form-label">Start Date:</label>
   <div class="col-sm-2">
-    <input type="text" class="form-control" id="endDate">
+    <input type="text" class="form-control" id="endDate" [(ngModel)]="filterData.endDate">
   </div>
 </div>
 <hr size="pixels" class="style4" />
 
-<div *ngFor="let task of taskList;let i = index">
+<div *ngFor="let task of taskList | viewTask:searchString;let i = index">
   <div class="form-row">
     <div class="form-group col-md-2">
       <label for="taskName">Task</label>
@@ -90,7 +90,7 @@
     </div>
     <div class="form-group col-md-1">
       <label for="btn2"></label>
-      <button type="button" class="btn2" [disabled]="task.flag==='Y'">End Task</button>
+      <button type="button" class="btn2" [disabled]="task.flag==='Y'" (click)="endTask(i)">End Task</button>
     </div>
   </div>
 </div>

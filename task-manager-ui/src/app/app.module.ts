@@ -7,12 +7,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AddTaskComponent } from './add-task/add-task.component';
 import { ViewTaskComponent } from './view-task/view-task.component';
+import { ViewTaskPipe } from './filters/view-task.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     AddTaskComponent,
-    ViewTaskComponent
+    ViewTaskComponent,
+    ViewTaskPipe
   ],
   imports: [
     BrowserModule,

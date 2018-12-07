@@ -25,7 +25,7 @@ export class AddTaskComponent implements OnInit {
   public reset():void{
     this.task.endDate='';
     this.task.startDate='';
-    this.task.priority='';
+    this.task.priority=null;
     this.task.taskName='';
     this.task.parentTask='';
   }

@@ -9,16 +9,21 @@ import { TaskModel } from '../model/task.model';
 })
 export class ViewTaskComponent implements OnInit {
   taskList: TaskModel[];
+  searchString:string;
+  filterData:TaskModel= new TaskModel();
   constructor(private taskManagerServece: TaskManagerService) { }
 
   ngOnInit() {
     this.taskManagerServece.getTask().subscribe(res => {
       this.taskList = res.outData;
-      console.log(this.taskList);
+      // console.log(this.taskList);
     });
   }
 
   public endTask(index){
+    this.taskManagerServece.endTask(this.taskList[index].taskId).subscribe(r=>this.taskList[index].flag='Y'); 
+    // this.taskList[index].flag='Y';
+    console.log(this.taskList[index]);
   }
 
 }
