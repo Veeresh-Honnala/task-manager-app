@@ -10,10 +10,12 @@ public class Responce<T> {
 
 	}
 
-	public Responce(T outData) {
+	public Responce(T outData,String status,String erroCode) {
 		this.outData = outData;
 	}
 
+	
+	
 	public T getOutData() {
 		return outData;
 	}
