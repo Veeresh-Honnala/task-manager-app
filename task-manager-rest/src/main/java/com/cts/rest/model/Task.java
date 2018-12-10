@@ -1,5 +1,9 @@
 package com.cts.rest.model;
 
+import java.io.Serializable;
+import java.time.LocalDate;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,12 +14,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.springframework.format.annotation.DateTimeFormat;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity()
 @Table(name = "TASK")
-public class Task {
+public class Task implements Serializable {
+	private static final long serialVersionUID = 1L;
 	@Column(name = "task_id")
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer taskId;
 
 	@Column(name = "task_name")
@@ -23,13 +31,21 @@ public class Task {
 
 	private String priority;
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = true)
 	@JoinColumn(name = "parent_id", nullable = true)
+//	@JsonBackReference
 	private ParentTask parentTask;
+
 	@Column(name = "start_Date")
-	private String startDate;
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	private LocalDate startDate;
+
 	@Column(name = "end_date")
-	private String endDate;
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	private LocalDate endDate;
+
 	@Column(name = "edit_enabled")
 	private String editEnabled;
 
@@ -65,19 +81,19 @@ public class Task {
 		this.parentTask = parentTask;
 	}
 
-	public String getStartDate() {
+	public LocalDate getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(String startDate) {
+	public void setStartDate(LocalDate startDate) {
 		this.startDate = startDate;
 	}
 
-	public String getEndDate() {
+	public LocalDate getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(String endDate) {
+	public void setEndDate(LocalDate endDate) {
 		this.endDate = endDate;
 	}
 

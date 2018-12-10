@@ -10,4 +10,5 @@ public interface TaskManagerService {
 	Task saveTask(Task task) throws DataAccessException;
 	List<Task> getTasks() throws DataAccessException;
 	Task getTask(Integer taskId) throws DataAccessException;
+	void updateTaskEditEnabled(Task task) throws DataAccessException;
 }

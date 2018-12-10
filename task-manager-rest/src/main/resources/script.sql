@@ -11,7 +11,7 @@ GRANT ALL PRIVILEGES ON taskmanager.* to taskmanager@localhost;
 
 FLUSH PRIVILEGES;
 
-create table TASK(
+create table task(
    task_id INT NOT NULL AUTO_INCREMENT,
    parent_id INT,
    task_name VARCHAR(100) NOT NULL,
@@ -22,7 +22,11 @@ create table TASK(
    PRIMARY KEY (task_id)
 );
 
-create table PARENT_TASK(
-   parent_id INT NOT NULL,
-   parent_task VARCHAR(100) NOT NULL
+create table parent_task(
+   parent_id INT NOT NULL AUTO_INCREMENT,
+   parent_task VARCHAR(100) NOT NULL,
+   PRIMARY KEY (parent_id)
 );
+
+
+update task 

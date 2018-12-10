@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cts.rest.constants.TaskManagerConstants;
@@ -28,9 +29,9 @@ public class TaskManagerController {
 		return new Responce<String>("Success","Success","0");
 	}
 	
-	@RequestMapping(path="/saveTask",consumes=MediaType.APPLICATION_JSON_VALUE,produces=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(path="/saveTask",method =RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_VALUE,produces=MediaType.APPLICATION_JSON_VALUE)
 	public Responce<String> saveTask(@RequestBody Task task) throws Exception{
-		LOGGER.error("Error while persisting task data", task.getTaskName());
+		LOGGER.debug("saveTask Entry ", task.getTaskName());
 		Responce<String> response;
 		try {
 			task=taskManagerService.saveTask(task);
@@ -42,13 +43,14 @@ public class TaskManagerController {
 		return response;
 	}
 	
-	@RequestMapping(path="/getTasks",produces=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(path="/getTasks",method =RequestMethod.POST,produces=MediaType.APPLICATION_JSON_VALUE)
 	public Responce<List<Task>> getTasks() throws Exception{
 		
 		Responce<List<Task>> response;
 		List<Task> list;
 		try {
 			list=taskManagerService.getTasks();
+			LOGGER.debug("saveTask Entry ", list);
 			response= new Responce<List<Task>>(list,TaskManagerConstants.SUCCESS, "0");
 		}catch(Exception e) {
 			LOGGER.error("Error while persisting task data", e);
@@ -57,11 +59,12 @@ public class TaskManagerController {
 		return response;
 	}
 	
-	@RequestMapping(path="/getTask",consumes=MediaType.APPLICATION_JSON_VALUE,produces=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(path="/getTask",method =RequestMethod.POST,consumes=MediaType.APPLICATION_JSON_VALUE,produces=MediaType.APPLICATION_JSON_VALUE)
 	public Responce<Task> getTask(@RequestBody Task task) throws Exception{
 		Responce<Task> response;
 		try {
 			task=taskManagerService.getTask(task.getTaskId());
+			LOGGER.error(" getTask ==----------------------->", task);
 			response= new Responce<Task>(task,TaskManagerConstants.SUCCESS, "0");
 		}catch(Exception e) {
 			LOGGER.error("Error while persisting task data", e.toString());
@@ -69,6 +72,19 @@ public class TaskManagerController {
 			response= new Responce<Task>(null,TaskManagerConstants.FAILURE, "2");
 		}
 		return response;
+	}
+	@RequestMapping(path="/updateTaskEditEnabled",method =RequestMethod.POST,consumes=MediaType.APPLICATION_JSON_VALUE,produces=MediaType.APPLICATION_JSON_VALUE)
+	public Responce<String> updateTaskEditEnabled(@RequestBody Task task)throws Exception{
+		LOGGER.debug("saveTask Entry ", task.getTaskName());
+		Responce<String> response;
+		try {
+			taskManagerService.updateTaskEditEnabled(task);;
+			response= new Responce<String>(task.getTaskId().toString(),TaskManagerConstants.SUCCESS, "0");
+		}catch(Exception e) {
+			LOGGER.error("Error while persisting task data", e);
+			response= new Responce<String>(null,TaskManagerConstants.FAILURE, "1");
+		}
+		return response;	
 	}
 
 
