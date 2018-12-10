@@ -4,10 +4,8 @@ import { ResponseModel } from '../model/response.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of, Subscriber } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-
-// import { Observable } from 'rxjs/Observable';
-// import 'rxjs/add/observable/of';
-import { restoreBindingIndex } from '@angular/core/src/render3/instructions';
+import { TaskManagerConstants } from '../constants/task-manager.constants';
+// import { restoreBindingIndex } from '@angular/core/src/render3/instructions';
 
 
 const httpOptions = {
@@ -24,32 +22,29 @@ export class TaskManagerService {
   constructor(private httpClient: HttpClient) { }
 
   public saveTask(task: TaskModel): Observable<any> {
-    if (this.mock) {
-      return this.httpClient.post<TaskModel>('', task, httpOptions).pipe(
-        tap((task: TaskModel) => console.log(`added task w/ id=${task.taskName}`)),
-        catchError(this.handleError<TaskModel>('addTask')));
-    } else {
-      // return  Observable.of(addTskResJson).map(o=>JSON.stringify(o));
+    if (TaskManagerConstants.USE_MOCK) {
       let res = new ResponseModel<string>();
       res.errCode = '0';
       res.outData = 'Success';
       res.status = 'Success';
       return new Observable<ResponseModel<string>>((subscriber: Subscriber<ResponseModel<string>>) => subscriber.next(res));
+    } else {
+      return this.httpClient.post<TaskModel>(TaskManagerConstants.ADD_TASK, task, httpOptions).pipe(
+        tap((task: TaskModel) => console.log(`added task w/ id=${task.taskName}`)),
+        catchError(this.handleError<TaskModel>('addTask')));
     }
 
   }
 
   public getTask(): Observable<any> {
-    if (this.mock) {
-
-      return this.httpClient.post<ResponseModel<TaskModel>>('', httpOptions).pipe(
-        tap((res: ResponseModel<TaskModel>) => console.log(`added task w/ id=${res.status}`)),
-        catchError(this.handleError<TaskModel>('addTask')));
-    } else {
+    if (TaskManagerConstants.USE_MOCK) {
       return this.httpClient.get('../../assets/task-list-response.json').pipe(
         tap((res: ResponseModel<TaskModel>) => console.log(`added task w/ id=${res.status}`)),
         catchError(this.handleError<TaskModel>('addTask')));
-
+    } else {
+      return this.httpClient.post<ResponseModel<TaskModel>>(TaskManagerConstants.FETCH_TASKS, httpOptions).pipe(
+        tap((res: ResponseModel<TaskModel>) => console.log(`added task w/ id=${res.status}`)),
+        catchError(this.handleError<TaskModel>('getTasks')));
     }
   }
   public deleteTask(taskId:string){
@@ -58,7 +53,10 @@ export class TaskManagerService {
       catchError(this.handleError<TaskModel>('addTask')));
   }
   public endTask(taskId:string){
-    return this.httpClient.post<ResponseModel<string>>('', httpOptions).pipe(
+    let task = new TaskModel();
+    task.taskId=taskId;
+    task.editEnabled='Y';
+    return this.httpClient.post<ResponseModel<string>>(TaskManagerConstants.END_TASK,task, httpOptions).pipe(
       tap((res: ResponseModel<string>) => console.log(`added task w/ id=${res.status}`)),
       catchError(this.handleError<ResponseModel<string>>('addTask')));
   }

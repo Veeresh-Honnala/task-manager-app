@@ -21,7 +21,7 @@ export class ViewTaskComponent implements OnInit {
   }
 
   public endTask(index){
-    this.taskManagerServece.endTask(this.taskList[index].taskId).subscribe(r=>this.taskList[index].flag='Y'); 
+    this.taskManagerServece.endTask(this.taskList[index].taskId).subscribe(r=>this.taskList[index].editEnabled='Y'); 
     // this.taskList[index].flag='Y';
     console.log(this.taskList[index]);
   }

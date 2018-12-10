@@ -12,6 +12,8 @@ public class Responce<T> {
 
 	public Responce(T outData,String status,String erroCode) {
 		this.outData = outData;
+		this.status = status;
+		this.errCode = erroCode;
 	}
 
 	
