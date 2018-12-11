@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { AddTaskComponent } from './add-task/add-task.component';
 import { ViewTaskComponent } from './view-task/view-task.component';
 import { ViewTaskPipe } from './filters/view-task.pipe';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { ViewTaskPipe } from './filters/view-task.pipe';
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ModalModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
