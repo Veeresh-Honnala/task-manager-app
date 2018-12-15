@@ -15,6 +15,12 @@ export class ViewTaskComponent implements OnInit {
   searchString:string;
   index:number;
   filterData:TaskModel= new TaskModel();
+  
+  alert: any = {
+    type: 'success',
+    msg: '',
+    timeout: 5000
+  };
   constructor(private taskManagerServece: TaskManagerService,private modalService: BsModalService) { }
 
   ngOnInit() {
@@ -35,8 +41,15 @@ export class ViewTaskComponent implements OnInit {
   }
 
   closeModal() {
-    this.index = null;
-    this.modalRef.hide()
+    this.modalRef.hide();
+    this.alert.msg='';
+    // this.index = null;
+  }
+
+  public saveOrUpdateTask(i): void {
+    this.taskManagerServece.saveTask(this.taskList[i]).subscribe(res => { 
+      this.alert.msg = res.outData;
+     })
   }
 
 

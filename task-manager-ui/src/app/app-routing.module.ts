@@ -5,7 +5,7 @@ import { ViewTaskComponent } from './view-task/view-task.component';
 import { AppComponent } from './app.component';
 
 const routes: Routes = [
-// {path:'', redirectTo:'/taskmanager',pathMatch: 'full'},
+{path:'', redirectTo:'/viewtask',pathMatch: 'full'},
 // {path:'/taskmanager', component:AppComponent},
 {path:'addtask',component:AddTaskComponent},
 {path:'viewtask',component:ViewTaskComponent}

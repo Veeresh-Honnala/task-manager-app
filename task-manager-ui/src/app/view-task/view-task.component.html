@@ -1,41 +1,11 @@
-<!--<div class="table-responsive">
-   <table class="table">
-    <thead>
-      <tr>
-        <th>Task</th>
-        <th>Parent</th>
-        <th>Priority</th>
-        <th>Start</th>
-        <th>End</th>
-        <th>Edit</th>
-        <th>Edit Task</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>
-          <div class="card">
-            <div class="card-body">Basic card</div>
-          </div>
-        </td>
-        <td>Anna</td>
-        <td>Pitt</td>
-        <td>35</td>
-        <td>New York</td>
-        <td>USA</td>
-        <td>Female</td>
-      </tr>
-    </tbody>
-  </table> </div>-->
-
 <div class="form-group row">
-  <label for="taskName" class="col-sm-2 col-form-label">Task:</label>
+  <label for="taskName1" class="col-sm-2 col-form-label">Task:</label>
   <div class="col-sm-4">
-    <input type="text" class="form-control" id="taskName" [(ngModel)]="searchString">
+    <input type="text" class="form-control" id="taskName1" [(ngModel)]="searchString">
   </div>
-  <label for="parentTask" class="col-sm-2 col-form-label">Parent Task:</label>
+  <label for="parentTask1" class="col-sm-2 col-form-label">Parent Task:</label>
   <div class="col-sm-4">
-    <input type="text" class="form-control" id="taskName" [(ngModel)]="filterData.parentTask">
+    <input type="text" class="form-control" id="parentTask1" [(ngModel)]="filterData.parentTask">
   </div>
 </div>
 <div class="form-group row">
@@ -98,21 +68,25 @@
 <ng-template #template>
   <div class="modal-header">
     <h4 class="modal-title pull-left">Update Task</h4>
-    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
-    <!-- <form novalidate> -->
+    <div *ngIf="successMessage">
+      <div class="alert alert-success alert-dismissible">
+        <span>{{successMessage}}</span>
+      </div>
+    </div>
     <div class="form-group row">
-      <label for="taskName" class="col-sm-2 col-form-label">Task:</label>
+      <label for="taskName2" class="col-sm-2 col-form-label">Task:</label>
       <div class="col-sm-6">
-        <input type="text" class="form-control" id="taskName" [(ngModel)]="taskList[index].taskName">
+        <input type="text" class="form-control" id="taskName2" [(ngModel)]="taskList[index].taskName">
       </div>
     </div>
 
     <div class="form-group row">
-      <label for="priority" class="col-sm-2 col-form-label">Priority:</label>
+      <label for="priority2" class="col-sm-2 col-form-label">Priority:</label>
       <div class="col-sm-6">
         <input type="range" min="0" max="30" class="form-control-range" [(ngModel)]="taskList[index].priority">
       </div>
@@ -123,7 +97,7 @@
       <div class="col-sm-6">
         <input type="text" class="form-control" id="parentTask" [(ngModel)]="taskList[index].parentTask.parentTask">
       </div>
-    </div> 
+    </div>
 
     <div class="form-group row">
       <label for="startDate" class="col-sm-2 col-form-label">Start Date:</label>
@@ -141,16 +115,13 @@
 
     <div class="form-group row">
       <div class="col-sm-3"></div>
-      <button type="button" class="btn" style="margin:10px" (click)="saveOrUpdateTask()">Update</button>
+      <button type="button" class="btn" style="margin:10px" (click)="saveOrUpdateTask(index)">Update</button>
       <button type="button" class="btn" style="margin:10px" (click)="closeModal()">Close</button>
       <div class="col-sm-2"></div>
     </div>
 
-    <div *ngIf="successMessage">
-      <div class="alert alert-success alert-dismissible">
-        <span>{{successMessage}}</span>
-      </div>
-
+    <div *ngIf="alert.msg">
+      <alert [type]="alert.type" [dismissible]="true">{{ alert.msg }}</alert>
     </div>
 
     <!-- </form> -->

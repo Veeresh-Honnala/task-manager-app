@@ -1,6 +1,14 @@
 # TaskManagerUi
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.1.2.
+
+## Development server
+
+`Step 1 : install nodejs`
+`Step 2 : Download task-manager-ui Extract task-manager-ui`
+`Step 3 : Navigate to task-manager-ui folder and execute command >npm install`
+`Step 4 : http://localhost:4200/ on browser`
+`Step 5 : if want run ui with mock data set USE_MOCK=true in task-manager.constants.ts`
+
 
 ## Development server
 
@@ -12,7 +20,7 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Run `ng build` to build the project. The build artifacts will be stored in the `target/classes/static` directory. Use the `--prod` flag for a production build.
 
 ## Running unit tests
 
@@ -24,4 +32,12 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 
 ## Further help
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+
+
+##Pending Activity 
+ `1 > Need to add maven profiles for jmeter test`
+ `2 > Need to add global exception handling`
+
+GIT active link :https://github.com/Veeresh-Honnala/task-manager-app.git
+  

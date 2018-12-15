@@ -1,1 +1,6 @@
+com/cts/rest/model/TaskTest.class
+com/cts/rest/model/ParentTaskTest.class
+com/cts/rest/service/TaskManagerServiceImplTest.class
+com/cts/rest/controller/TaskManagerControllerTest.class
 com/cts/rest/AppTest.class
+com/cts/rest/model/ResponceTest.class
