@@ -16,16 +16,16 @@ public class StepDefinitions {
 	 
     @Before
     public void before() {
-        driver = new FirefoxDriver();
-        driver.navigate().to("http://localhost:8080");
+//        driver = new FirefoxDriver();
+//        driver.navigate().to("http://localhost:8080");
     }
  
     @After
     public void after() {
-        driver.quit();
+//        driver.quit();
     }
  
-    @Given("^user navigates to task manager app")
+    @Given("^user navigates to task manager app$")
     public void user_navigates_to_task_manager_app() {
     	System.out.println("user_navigates_to_task_manager_app");
 //        WebElement searchField = driver.findElement(By.id("searchInput"));
