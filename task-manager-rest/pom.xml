@@ -17,6 +17,9 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<cucumber.version>1.2.4</cucumber.version>
 		<selenium.version>2.48.2</selenium.version>
+		<skip.integration.tests>false</skip.integration.tests>
+		<skip.unit.tests>false</skip.unit.tests>
+		<skip.jmeter.tests>false</skip.jmeter.tests>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -75,7 +78,6 @@
 			<version>${selenium.version}</version>
 			<scope>test</scope>
 		</dependency>
-
 	</dependencies>
 
 
@@ -85,68 +87,122 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+
+			<!-- unit test plugin -->
 			<plugin>
-				<groupId>com.lazerycode.jmeter</groupId>
-				<artifactId>jmeter-maven-plugin</artifactId>
-				<version>2.7.0</version>
-				<executions>
-					<!-- Run JMeter tests -->
-					<execution>
-						<id>jmeter-tests</id>
-						<goals>
-							<goal>jmeter</goal>
-						</goals>
-					</execution>
-					<!-- Fail build on errors in test -->
-					<execution>
-						<id>jmeter-check-results</id>
-						<goals>
-							<goal>results</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>de.codecentric</groupId>
-				<artifactId>jmeter-graph-maven-plugin</artifactId>
-				<version>0.1.0</version>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
-					<inputFile>${project.build.directory}/jmeter/results/taskManager.jtl</inputFile>
-					<graphs>
-						<graph>
-							<pluginType>ResponseTimesOverTime</pluginType>
-							<width>800</width>
-							<height>600</height>
-							<outputFile>${project.build.directory}/jmeter/results/taskManager.png</outputFile>
-						</graph>
-					</graphs>
+					<!-- Skips unit tests if the value of skip.unit.tests property is true -->
+					<skipTests>${skip.unit.tests}</skipTests>
+					<!-- Excludes integration tests when unit tests are run -->
+					<includes>
+						<include>**/rest/**</include>
+					</includes>
+					<excludes>
+						<exclude>**/selenium/*.java</exclude>
+					</excludes>
 				</configuration>
 			</plugin>
 		</plugins>
 	</build>
-	<!-- <profiles> <profile> <id>dev</id> <activation> <activeByDefault>true</activeByDefault> 
-		</activation> <properties> <skip.integration.tests>true</skip.integration.tests> 
-		<skip.unit.tests>false</skip.unit.tests> </properties> </profile> <profile> 
-		<id>integration-test</id> <properties> <skip.integration.tests>false</skip.integration.tests> 
-		<skip.unit.tests>true</skip.unit.tests> </properties> <build> <plugins> <plugin> 
-		<artifactId>maven-surefire-plugin</artifactId> <version>2.14</version> <configuration> 
-		<skipTests>${skip.unit.tests}</skipTests> </configuration> </plugin> <plugin> 
-		<groupId>org.apache.maven.plugins</groupId> <artifactId>maven-failsafe-plugin</artifactId> 
-		<version>2.19.1</version> <executions> <execution> <id>run-integration-tests</id> 
-		<phase>integration-test</phase> <goals> <goal>integration-test</goal> <goal>verify</goal> 
-		</goals> </execution> </executions> <configuration> <skipTests>${skip.integration.tests}</skipTests> 
-		</configuration> </plugin> <plugin> <groupId>org.codehaus.mojo</groupId> 
-		<artifactId>build-helper-maven-plugin</artifactId> <version>1.12</version> 
-		<executions> <execution> <id>add-integration-test-sources</id> <phase>generate-test-sources</phase> 
-		<goals> <goal>add-test-source</goal> </goals> <configuration> <sources> <source>src/test/java/integration-test</source> 
-		</sources> </configuration> </execution> <execution> <id>add-integration-test-resources</id> 
-		<phase>generate-test-resources</phase> <goals> <goal>add-test-resource</goal> 
-		</goals> <configuration> <resources> <resource> <filtering>true</filtering> 
-		<directory>src/test/resources</directory> </resource> </resources> </configuration> 
-		</execution> </executions> </plugin> </plugins> </build> </profile> <profile> 
-		<id>jmeter-test</id> <properties> <skip.unit.tests>true</skip.unit.tests> 
-		</properties> <build> <plugins> <plugin> <artifactId>maven-surefire-plugin</artifactId> 
-		<version>2.14</version> <configuration> <skipTests>${skip.unit.tests}</skipTests> 
-		</configuration> </plugin> </plugins> </build> </profile> </profiles> -->
 
+
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<skip.integration.tests>true</skip.integration.tests>
+				<skip.unit.tests>false</skip.unit.tests>
+				<skip.jmeter.tests>true</skip.jmeter.tests>
+			</properties>
+		</profile>
+		<profile>
+			<id>jmeter-test</id>
+			<properties>
+				<skip.integration.tests>true</skip.integration.tests>
+				<skip.unit.tests>true</skip.unit.tests>
+				<skip.jmeter.tests>false</skip.jmeter.tests>
+			</properties>
+			<build>
+				<plugins>
+					<!-- Jmeter plugin -->
+					<plugin>
+						<groupId>com.lazerycode.jmeter</groupId>
+						<artifactId>jmeter-maven-plugin</artifactId>
+						<version>2.7.0</version>
+						<executions>
+							<!-- Run JMeter tests -->
+							<execution>
+								<id>jmeter-tests</id>
+								<goals>
+									<goal>jmeter</goal>
+								</goals>
+								<configuration>
+									<skipTests>${skip.jmeter.tests}</skipTests>
+								</configuration>
+							</execution>
+							<!-- Fail build on errors in test -->
+							<execution>
+								<id>jmeter-check-results</id>
+								<goals>
+									<goal>results</goal>
+								</goals>
+								<configuration>
+									<skipTests>${skip.jmeter.tests}</skipTests>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>de.codecentric</groupId>
+						<artifactId>jmeter-graph-maven-plugin</artifactId>
+						<version>0.1.0</version>
+						<configuration>
+							<inputFile>${project.build.directory}/jmeter/results/taskManager.jtl</inputFile>
+							<graphs>
+								<graph>
+									<pluginType>ResponseTimesOverTime</pluginType>
+									<width>800</width>
+									<height>600</height>
+									<outputFile>${project.build.directory}/jmeter/results/taskManager.png</outputFile>
+								</graph>
+							</graphs>
+							<skipTests>${skip.jmeter.tests}</skipTests>
+						</configuration>
+					</plugin>
+
+				</plugins>
+
+			</build>
+		</profile>
+		<profile>
+			<id>integration-test</id>
+			<properties>
+				<skip.integration.tests>false</skip.integration.tests>
+				<skip.unit.tests>true</skip.unit.tests>
+				<skip.jmeter.tests>true</skip.jmeter.tests>
+			</properties>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<configuration>
+							<skipTests>${skip.integration.tests}</skipTests>
+							<includes>
+								<include>**/selenium/TaskManagerTestRunner.java</include>
+							</includes>
+							<excludes>
+								<exclude>**/rest/**/**.java</exclude>
+							</excludes>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>
