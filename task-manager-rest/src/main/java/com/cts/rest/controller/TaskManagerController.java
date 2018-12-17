@@ -18,6 +18,7 @@ import com.cts.rest.model.Task;
 import com.cts.rest.service.TaskManagerService;
 
 @RestController
+@RequestMapping(path="/api/taskmanager")
 public class TaskManagerController {
 	public static final Logger LOGGER = LoggerFactory.getLogger(TaskManagerController.class);
 	@Autowired
