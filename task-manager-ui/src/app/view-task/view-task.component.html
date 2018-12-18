@@ -78,44 +78,49 @@
         <span>{{successMessage}}</span>
       </div>
     </div>
-    <div class="form-group row">
-      <label for="taskName2" class="col-sm-2 col-form-label">Task:</label>
-      <div class="col-sm-6">
-        <input type="text" class="form-control" id="taskName2" [(ngModel)]="taskList[index].taskName">
-      </div>
-    </div>
-
-    <div class="form-group row">
-      <label for="priority2" class="col-sm-2 col-form-label">Priority:</label>
-      <div class="col-sm-6">
-        <input type="range" min="0" max="30" class="form-control-range" [(ngModel)]="taskList[index].priority">
-      </div>
-    </div>
-
-    <div class="form-group row">
-      <label for="parentTask" class="col-sm-2 col-form-label">Parent Task:</label>
-      <div class="col-sm-6">
-        <input type="text" class="form-control" id="parentTask" [(ngModel)]="taskList[index].parentTask.parentTask">
-      </div>
-    </div>
-
-    <div class="form-group row">
-      <label for="startDate" class="col-sm-2 col-form-label">Start Date:</label>
-      <div class="col-sm-6">
-        <input type="text" class="form-control" id="startDate" [(ngModel)]="taskList[index].startDate">
-      </div>
-    </div>
-
-    <div class="form-group row">
-      <label for="endDate" class="col-sm-2 col-form-label">End Date:</label>
-      <div class="col-sm-6">
-        <input type="text" class="form-control" id="endDate" [(ngModel)]="taskList[index].endDate">
-      </div>
-    </div>
-
+    <form class="needs-validation"  #addForm novalidate>
+        <div class="form-group required row">
+          <label for="taskName2" class="col-sm-2 col-form-label required1">Task:</label>
+          <div class="col-sm-6">
+            <input type="text" name="taskName2" class="form-control" id="taskName2" [(ngModel)]="taskList[index].taskName" required>
+            <div class="invalid-feedback">Task is mandatory field</div>
+          </div>
+        </div>
+      
+        <div class="form-group required row">
+          <label for="priority2" class="col-sm-2 col-form-label required">Priority:</label>
+          <div class="col-sm-6">
+            <span class="font-weight-bold indigo-text mr-2 mt-1">0</span>
+            <span class="font-weight-bold indigo-text ml-2 mt-1 pd-80">30</span>
+            <input type="range"  name="priority2" id ="priority2" min="0" max="30" class="custom-range" [(ngModel)]="taskList[index].priority" >
+          </div>
+          <div class="invalid-feedback">Priority is mandatory field</div>
+        </div>
+      
+        <div class="form-group row">
+          <label for="parentTask2" class="col-sm-2 col-form-label">Parent Task:</label>
+          <div class="col-sm-6">
+            <input type="text" name="parentTask2"  class="form-control" id="parentTask2" [(ngModel)]="taskList[index].parentTask.parentTask">
+          </div>
+        </div>
+      
+        <div class="form-group required row">
+          <label for="startDate2" class="col-sm-2 col-form-label">Start Date:</label>
+          <div class="col-sm-6">
+            <input type="text"  name="startDate2" class="form-control" placeholder="DD/MM/YYYY" id="startDate2" [(ngModel)]="taskList[index].startDate" >
+          </div>
+        </div>
+      
+        <div class="form-group required row">
+          <label for="endDate2" class="col-sm-2 col-form-label">End Date:</label>
+          <div class="col-sm-6">
+            <input type="text"  name="endDate2" class="form-control" placeholder="DD/MM/YYYY" id="endDate2" [(ngModel)]="taskList[index].endDate" required>
+          </div>
+        </div>
+    
     <div class="form-group row">
       <div class="col-sm-3"></div>
-      <button type="button" class="btn" style="margin:10px" (click)="saveOrUpdateTask(index)">Update</button>
+      <button type="button" class="btn" style="margin:10px"  [disabled]="(taskList[index].taskName==null ||task.taskName=='' || task.startDate==null|| task.startDate==''|| task.endDate==null|| task.endDate=='')"  (click)="saveOrUpdateTask(index)">Update</button>
       <button type="button" class="btn" style="margin:10px" (click)="closeModal()">Close</button>
       <div class="col-sm-2"></div>
     </div>
@@ -124,6 +129,6 @@
       <alert [type]="alert.type" [dismissible]="true">{{ alert.msg }}</alert>
     </div>
 
-    <!-- </form> -->
+    </form>
   </div>
 </ng-template>
