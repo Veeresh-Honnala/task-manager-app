@@ -35,7 +35,7 @@ try{
 
 
 
-buildDev(){
+def buildDev(){
 
 	node {
 	   stage 'check out and clean'
