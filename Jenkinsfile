@@ -7,12 +7,23 @@ try{
 	   stage 'Checkout'
 	       echo "check out start"
 		   checkout scm
-		   sh 'mvn clean'
 	       echo "check out end"
+	   stage 'Clean Test'
+	   	  echo "clean test start"
+	   	  sh 'mvn clean test'		
+	   	  echo "clean test end"
 	   stage 'Clean Package'
 	   	  echo "clean package start"
-	   	  sh 'mvn clean package'		
+	   	  sh 'mvn clean package -Dspring.profiles.active=docker -Dmaven.test.skip'		
 	   	  echo "clean package end"
+	   stage 'Docker Build'
+	   	  echo "docker build start"
+	   	  sh 'docker-compose build'		
+	   	  echo "docker build end"
+	   stage 'Docker Build'
+	   	  echo "docker compose up start"
+	   	  sh 'docker-compose up'		
+	   	  echo "docker compose up end"
 	
 	}
 
