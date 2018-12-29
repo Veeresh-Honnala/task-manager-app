@@ -4,27 +4,25 @@
 try{
    
 	node {
-	   stage 'check out and clean'
-	       print "check out start"
+	   stage 'Checkout'
+	       echo "check out start"
 		   checkout scm
 		   sh 'mvn clean'
-	       print "check out end"
-	   stage 'check out and clean'
-	   	  print "clean package start"
+	       echo "check out end"
+	   stage 'Clean Package'
+	   	  echo "clean package start"
 	   	  sh 'mvn clean package'
-	   	  print "clean package end"
+	   	  echo "clean package end"
 	
 	}
 
 }catch(ex){
   err = caughtError
-  print "error while building"+err
+  echo "error while building"+err
 }finally{
-  print "executing finally block"
+  echo "executing finally block"
 }
-if (err) {
-     throw err
-}
+
 
 
 buildDev(){
