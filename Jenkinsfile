@@ -11,7 +11,7 @@ try{
 	       echo "check out end"
 	   stage 'Clean Package'
 	   	  echo "clean package start"
-	   	  sh 'mvn clean package'
+	   	  sh 'mvn clean package'		
 	   	  echo "clean package end"
 	
 	}
@@ -23,10 +23,10 @@ try{
          body: "It appears that ${env.BUILD_URL} is failing, somebody should do something about that",
            to: 'kumar.hv3@gmail.com',
       replyTo: 'kumar.hv3@gmail.com',
-       from: 'noreply@ci.jenkins.io'
+       from: 'kumar.hv3@gmail.com'
 }finally{
   echo "executing finally block"
-  mail subject: "${env.JOB_NAME} (${env.BUILD_NUMBER}) failed",
+  mail subject: "${env.JOB_NAME} (${env.BUILD_NUMBER}) successfull",
          body: "It appears that ${env.BUILD_URL} successfull",
            to: 'honnala.c203@gmail.com',
       replyTo: 'kumar.hv3@gmail.com',
