@@ -7,8 +7,8 @@ services:
      command: --default-authentication-plugin=mysql_native_password
      restart: always
      volumes:
-       - tma_mysql_data/var/lib/mysql
-       - ./task-manager-rest/src/main/resources/script.sql:/docker-entrypoint-initdb.d/script.sql
+       - tma_mysql_data:/var/lib/mysql
+#       - ./task-manager-rest/src/main/resources/script.sql:/docker-entrypoint-initdb.d/script.sql
      environment:
        MYSQL_ROOT_PASSWORD: admin
        MYSQL_DATABASE: taskmanager
