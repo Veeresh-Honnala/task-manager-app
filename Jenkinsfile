@@ -3,7 +3,7 @@
 
 
 try{
-   buildDev();
+   buildDev()
 }catch(ex){
   err = caughtError
   print "error while building"+err
