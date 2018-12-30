@@ -22,7 +22,7 @@ try{
 	   	  echo "docker build end"
 	   stage 'Start Docker Container'
 	   	  echo "docker compose up start"
-	   	  sh 'sudo docker-compose up'		
+	   	  sh 'sudo docker-compose -d up'		
 	   	  echo "docker compose up end"
 	
 	}
