@@ -18,11 +18,11 @@ try{
 	   	  echo "clean package end"
 	   stage 'Docker Build'
 	   	  echo "docker build start"
-	   	  sh 'docker-compose build'		
+	   	  sh 'sudo docker-compose build'		
 	   	  echo "docker build end"
 	   stage 'Docker Run'
 	   	  echo "docker compose up start"
-	   	  sh 'docker-compose -d up'		
+	   	  sh 'sudo docker-compose up -d'		
 	   	  echo "docker compose up end"
 	
 	}
