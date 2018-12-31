@@ -10,4 +10,4 @@ RUN apt-get update && \
 WORKDIR /app
 COPY task-manager-rest/target/task-manager-rest-0.0.1-SNAPSHOT.jar .
 EXPOSE 8080
-CMD ["java","-jar","task-manager-rest-0.0.1-SNAPSHOT.jar"]
+CMD ["java","-Dspring.profiles.active=docker","-jar","task-manager-rest-0.0.1-SNAPSHOT.jar"]

@@ -1,16 +1,3 @@
-CREATE DATABASE taskmanager;
-
-USE taskmanager;
-
-INSERT INTO mysql.user (User,Host,authentication_string,ssl_cipher,x509_issuer,x509_subject)
-VALUES('taskmanager','localhost',PASSWORD('taskmanager'),'','','');
-
-FLUSH PRIVILEGES;
-
-GRANT ALL PRIVILEGES ON taskmanager.* to taskmanager@localhost;
-
-FLUSH PRIVILEGES;
-
 create table task(
    task_id INT NOT NULL AUTO_INCREMENT,
    parent_id INT,

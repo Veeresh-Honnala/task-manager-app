@@ -1,14 +1,14 @@
 version: "3"
 volumes:
-  mysql_data: 
+  tma_mysql_data: 
 services:
    docker-mysql:
      image: mysql:5.7
      command: --default-authentication-plugin=mysql_native_password
      restart: always
      volumes:
-       - tma_mysql_data/var/lib/mysql
-       - ./task-manager-rest/src/main/resources/script.sql:/docker-entrypoint-initdb.d/script.sql
+       - tma_mysql_data:/var/lib/mysql
+       - ./task-manager-rest/src/main/resources/script-docker.sql:/docker-entrypoint-initdb.d/script-docker.sql
      environment:
        MYSQL_ROOT_PASSWORD: admin
        MYSQL_DATABASE: taskmanager
