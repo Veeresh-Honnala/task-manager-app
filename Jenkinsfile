@@ -3,27 +3,43 @@
 
 try{
    
-	node {
-	   stage 'Checkout'
+	node('master') {
+	   stage ('Checkout'){
+	   
 	       echo "check out start"
 		   checkout scm
 	       echo "check out end"
-	   stage 'Clean Test'
+	     }
+	   stage('Clean Test'){
 	   	  echo "clean test start"
 	   	  sh 'mvn clean test'		
 	   	  echo "clean test end"
-	   stage 'Clean Package'
+	   	  }
+	   stage('Clean Package'){
 	   	  echo "clean package start"
 	   	  sh 'mvn clean package -Dspring.profiles.active=docker -Dmaven.test.skip'		
 	   	  echo "clean package end"
-	   stage 'Docker Build'
+	   	  }
+	   stage ('Docker Build'){
 	   	  echo "docker build start"
 	   	  sh 'docker build . -t task'		
 	   	  echo "docker build end"
-	   stage 'Docker Run'
+	   	  }
+	   stage('Docker Run'){
 	   	  echo "docker compose up start"
 	   	  sh 'docker-compose up -d'		
 	   	  echo "docker compose up end"
+	   	  }
+	   stage('Jmeter Test')	 {
+	      echo "Jmeter test start"
+	      sh 'mvn verify -Pjmeter-test'	
+	      echo "Jmeter test end"
+	    }
+	   stage('Integration Test')	 {
+	      echo "integration test start"
+	      sh 'mvn test -Pintegration-test'	
+	      echo "integration test end"
+	    }
 	
 	}
 
