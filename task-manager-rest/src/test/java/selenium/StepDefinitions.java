@@ -27,7 +27,7 @@ public class StepDefinitions {
 		System.out.println(System.getProperty("webdriver.chrome.driver"));
 
 //    	driver = new RemoteWebDriver("http://localhost:9515", DesiredCapabilities.chrome());
-		driver.navigate().to("http://localhost:4200");
+		driver.navigate().to("http://localhost:8081");
 	}
 
 	@After
